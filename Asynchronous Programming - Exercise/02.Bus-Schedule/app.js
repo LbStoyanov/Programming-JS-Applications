@@ -1,11 +1,14 @@
 function solve() {
     let infoDiv = document.getElementsByClassName('info')[0];
-    let url = '';
     let departBtn = document.getElementById('depart');
     let arriveBtn = document.getElementById('arrive');
 
+    let stop = {
+        next: 'depot',
+    }
+
     async function depart() {
-        url = 'http://localhost:3030/jsonstore/bus/schedule/depot';
+        const url = `http://localhost:3030/jsonstore/bus/schedule/${stop.next}`;
         infoDiv.textContent = 'Loading...';
         const response = await fetch(url);
 
@@ -22,10 +25,12 @@ function solve() {
        
         departBtn.disabled = true;
         arriveBtn.disabled = false;
+        infoDiv.textContent = `Next stop ${stopName}`;
+        stop.next = nextStopID;
     }
 
     function arrive() {
-        console.log('Arrive TODO...');
+        
     }
 
     return {
