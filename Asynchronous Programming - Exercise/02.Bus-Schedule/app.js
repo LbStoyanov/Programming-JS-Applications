@@ -4,12 +4,15 @@ function solve() {
     let arriveBtn = document.getElementById('arrive');
 
     let stop = {
-        next: 'depot',
+        next: 'depot'
     }
 
+    
+
     async function depart() {
+        departBtn.disabled = true;
         const url = `http://localhost:3030/jsonstore/bus/schedule/${stop.next}`;
-        infoDiv.textContent = 'Loading...';
+        //infoDiv.textContent = 'Loading...';
         const response = await fetch(url);
 
         if (response.status !== 200) {
@@ -18,18 +21,20 @@ function solve() {
             throw new Error('Stop ID not found!')
         }
 
-        const data = await response.json();
+        stop = await response.json();
 
-        let stopName = data.name;
-        let nextStopID = data.next;
-       
-        departBtn.disabled = true;
+        
+        
+        infoDiv.textContent = `Next stop ${stop.name}`;
         arriveBtn.disabled = false;
-        infoDiv.textContent = `Next stop ${stopName}`;
-        stop.next = nextStopID;
+        
     }
 
-    function arrive() {
+    async function arrive() {
+       
+        departBtn.disabled = false;
+        arriveBtn.disabled = true;
+        infoDiv.textContent = `Arriving at ${stop.name}`;
         
     }
 
