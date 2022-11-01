@@ -16,35 +16,31 @@ function attachEvents() {
   document.getElementById("submit").addEventListener("click", getWeather);
 
   async function getWeather() {
-    
-    //Barcelona
-    let cityNameInput = document.getElementById("location").value;
+    try {
+      //Barcelona
+      let cityNameInput = document.getElementById("location").value;
 
-    const url = "http://localhost:3030/jsonstore/forecaster/locations";
+      const url = "http://localhost:3030/jsonstore/forecaster/locations";
 
-    const response = await fetch(url);
+      const response = await fetch(url);
 
-    if (response.status !== 200) {
-      
+      if (response.status !== 200) {
+      }
+
+      //List of objects(cityCode,cityName)
+      const listOfCitiesInfo = await response.json();
+
+      let searchedCity = listOfCitiesInfo.find((c) => c.name === cityNameInput);
+
+
+      getCurrentCondition(searchedCity.code);
+      getUpcomingConditions(searchedCity.code);
+
+    } catch (error) {
+        let label = document.getElementsByClassName("label")[0];
+        label.innerText = "Error";
+        currentConditionDiv.style.display = "block";
     }
-
-    //List of objects(cityCode,cityName)
-    const listOfCitiesInfo = await response.json();
-
-    let searchedCity = listOfCitiesInfo.find((c) => c.name === cityNameInput);
-
-
-    if (!searchedCity) {
-
-        let label = document.getElementsByClassName('label')[0]; 
-        label.innerText = 'Error';
-        currentConditionDiv.style.display = 'block';
-        return;
-        
-    }
-
-    getCurrentCondition(searchedCity.code);
-    getUpcomingConditions(searchedCity.code);
   }
 
   //Current city code: barcelona
@@ -53,16 +49,10 @@ function attachEvents() {
 
     const response = await fetch(url);
 
-    if (response.status !== 200) {
-        let label = document.getElementsByClassName('label')[0]; 
-        label.innerText = 'Error';
-        currentConditionDiv.style.display = 'block';
-        return;
-    }
+   
 
     const currentCityTodayWeatherInfo = await response.json();
 
-    
     currentConditionDiv.style.display = "block";
 
     let current = document.getElementById("current");
@@ -111,32 +101,23 @@ function attachEvents() {
 
     const response = await fetch(url);
 
-    if (response.status !== 200) {
-        let label = document.getElementsByClassName('label')[0]; 
-        label.innerText = 'Error';
-        currentConditionDiv.style.display = 'block';
-        return;
-    }
 
     const upcomingInfo = await response.json();
 
     let divUpcoming = document.getElementById("upcoming");
 
-    let forecastInfoDiv = document.createElement("div");   
+    let forecastInfoDiv = document.createElement("div");
     forecastInfoDiv.classList.add("forecast-info");
 
     let listOfWheather = upcomingInfo.forecast;
 
     for (let wheather of listOfWheather) {
-      
       let currentSpan = creataSpan(wheather);
       divUpcoming.appendChild(currentSpan);
-      
     }
   }
 
   function creataSpan(wheather) {
-   
     let condition = wheather.condition;
     let high = wheather.high;
     let low = wheather.low;
