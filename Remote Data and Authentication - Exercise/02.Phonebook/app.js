@@ -11,25 +11,25 @@ async function createContact(){
     let personInput = document.getElementById('person');
     let phoneInput = document.getElementById('phone');
 
-    if (personInput.value === '' || phoneInput.value === '') {
-        alert('Required fields!');
+    if (personInput.value !== '' || phoneInput.value !== '') {
+
+        let contactObj = {
+            person: personInput.value,
+            phone: phoneInput.value
+        }
+    
+        await fetch(url,{
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(contactObj)
+        });
+    
     }
-
-    let contactObj = {
-        person: personInput.value,
-        phone: phoneInput.value
-    }
-
-    await fetch(url,{
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(contactObj)
-    });
-
-    debugger
 
     personInput.value = '';
     phoneInput.value = '';
+
+    loadPhonebook();
 }
 
 async function loadPhonebook(){
