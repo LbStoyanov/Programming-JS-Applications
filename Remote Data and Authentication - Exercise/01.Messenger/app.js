@@ -9,16 +9,20 @@ function attachEvents() {
   refreshBtn.addEventListener("click", showMessages);
 }
 
-function createMessage() {
+async function createMessage() {
   let authorName = document.querySelector("input[name=author]").value;
   let messageText = document.querySelector("input[name=content]").value;
+
+  if (authorName === '' || messageText === '') {
+    alert('Fields are required!');
+  }
 
   let obj = {
     author: authorName,
     content: messageText,
   };
 
-  fetch(url, {
+  await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(obj),
