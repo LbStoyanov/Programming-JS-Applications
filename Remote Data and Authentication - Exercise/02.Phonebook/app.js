@@ -33,6 +33,7 @@ async function createContact(){
 }
 
 async function loadPhonebook(){
+    phonebookList.innerHTML = '';
     const url = `http://localhost:3030/jsonstore/phonebook`;
 
     const response = await fetch(url);
@@ -44,6 +45,7 @@ async function loadPhonebook(){
 
         let li = document.createElement('li');
         li.textContent = `${person.person}: ${person.phone}`;
+        li.setAttribute('id', person._id);
         let button = document.createElement('button');
         button.classList.add('button');
         button.innerText = 'Delete';
@@ -51,18 +53,21 @@ async function loadPhonebook(){
         li.appendChild(button);
         phonebookList.appendChild(li);
 
-        async function deleteContact(){
-
-            //const url = `http://localhost:3030/jsonstore/phonebook/${}`;
-           
-        }
+       
     }
 
-    
+    async function deleteContact(e){
+
+        const id = e.target.parentNode.id;
+        e.target.parentNode.remove();
+        const url = `http://localhost:3030/jsonstore/phonebook/${id}`;
+
+        await fetch(url,{
+            method: 'DELETE',
+        })
+       
+    }
 
 }
-
-
-
 
 attachEvents();
