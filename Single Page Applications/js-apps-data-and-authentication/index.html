@@ -6,28 +6,29 @@
     <link rel="stylesheet" href="static/site.css" />
     <link rel="stylesheet" href="static/recipe.css" />
     <link rel="stylesheet" href="static/form.css" />
-    <script src="/src/app2.js" type="module"></script>
+    <script src="/src/app.js" type="module"></script>
   </head>
 
   <body>
     <header>
       <h1>My Cookbook</h1>
-      <nav>
+      <nav class="navigation">
         <a class="active">Catalog</a>
         <div id="user">
-          <a href="create.html">Create Recipe</a>
-          <a id="logoutBtn" href="javascript:void(0)">Logout</a>
+          <a href="create">Create Recipe</a>
+          <a href="/logout">Logout</a>
         </div>
         <div id="guest">
-          <a href="login.html">Login</a>
-          <a href="register.html">Register</a>
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
         </div>
       </nav>
     </header>
     <main>
         <section class="home">
             <h2>Catalog</h2>
-            <articlec class="preview">
+
+            <article class="preview">
                 <div class="title">
                     <h2>Title</h2>
                 </div>
@@ -36,7 +37,7 @@
                 </div>
             </article>
 
-            <articlec class="preview">
+            <article class="preview">
                 <div class="title">
                     <h2>Title</h2>
                 </div>
