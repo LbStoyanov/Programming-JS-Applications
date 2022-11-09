@@ -13,3 +13,6 @@ navElement.addEventListener('click', (e) =>{
         router(url.pathname);
     }
 })
+
+
+//TODO: Check for the active button and change the color
