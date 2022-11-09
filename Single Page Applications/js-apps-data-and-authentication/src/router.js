@@ -1,16 +1,28 @@
+import { renderLogin } from "./homaPage";
+
 const homeSection = document.querySelector('.home');
 const loginSection = document.querySelector('.login');
 const mainContent = document.querySelector('.main-content');
 
+const routers = {
+    '/': renderLogin,
+    //TODO OTHER PAGES RENDER
+
+}
+
 export function router(path){
     hideContent();
+    
+    const renderer = routers[path];
+    renderer();
 
-    if (path =='/') {
+    
+   /*  if (path =='/') {
         
-        homeSection.style.display = 'block';
+        
     }else if (path =='/login') {
         loginSection.style.display = 'block';
-    }
+    } */
 }
 
 function hideContent(){
