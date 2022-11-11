@@ -7,6 +7,11 @@ export function homePage(){
     showView(homeSection);
 }
 
+async function displayMovies(){
+    const movies = await getMovies();
+    catalog.replaceChildren(...movies.map(createMoviePreview));
+}
+
 function createMoviePreview(movie){
     const element = document.createElement('div');
     element.className = 'card mb-4';
