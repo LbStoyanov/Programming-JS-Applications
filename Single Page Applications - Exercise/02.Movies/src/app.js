@@ -1,4 +1,4 @@
-import { showView } from "./router.js";
+import { showView } from "./util.js";
 
 const routes = {
     '/': homePage,
@@ -26,16 +26,14 @@ function onNavigate(e){
     }
 }
 
-const homeSection = document.querySelector('#home-page');
+
 const loginSection = document.querySelector('#form-login');
 const registerSection = document.querySelector('#form-sign-up');
 const createSection = document.querySelector('#add-movie');
 const detailsSection = document.querySelector('#movie-example');
 const editSection = document.querySelector('#edit-movie');
 
-function homePage(){
-    showView(homeSection);
-}
+
 
 function loginPage(){
     showView(loginSection);
@@ -61,4 +59,3 @@ function editPage(){
     showView(editSection);
 }
 
-homePage();
