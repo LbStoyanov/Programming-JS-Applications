@@ -16,6 +16,8 @@ function search() {
 
       update(text);
       updateCount();
+
+      textNode.value = "";
       
    }
 
