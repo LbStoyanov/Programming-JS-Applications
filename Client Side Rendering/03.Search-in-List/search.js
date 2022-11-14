@@ -15,7 +15,14 @@ function search() {
       const text = textNode.value.toLowerCase();
 
       update(text);
+      updateCount();
       
+   }
+
+   function updateCount(){
+      const count = document.querySelectorAll('.active').length;
+      const countElement = count ? html`<p>${count} matches found</p>` : "";
+      render(countElement,result);
    }
 
    function renderTowns(townsName, match){
@@ -41,7 +48,7 @@ function search() {
     
     function createTownTemplate(town, match){
       return html`         
-              <li class="${town.toLowerCase().includes(match) ? "active" : ""}">${town}</li>
+              <li class="${(match && town.toLowerCase().includes(match)) ? "active" : ""}">${town}</li>
       `
     }
 }
