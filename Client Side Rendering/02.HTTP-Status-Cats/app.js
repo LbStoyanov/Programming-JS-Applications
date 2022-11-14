@@ -20,7 +20,7 @@ const cardTemplate = (data) =>  html`
                         <button class="showBtn">${cat.info ? 'Hide' : 'Show'} status code</button>
                         <div class="status" style=${styleMap(cat.info ? {display:"block"} : {display:"none"})} id="${cat.id}">
                             <h4>Status Code: ${cat.statusCode}</h4>
-                            <p>${cat.statusMessage}}</p>
+                            <p>${cat.statusMessage}</p>
                         </div>
                     </div>
                 </li>
