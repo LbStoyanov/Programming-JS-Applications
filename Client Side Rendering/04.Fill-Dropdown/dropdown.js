@@ -25,6 +25,7 @@ async function makeGetRequest(){
     render(result,dropDownMenu);
 
 }
+
 initialItemsLoading();
 
 
