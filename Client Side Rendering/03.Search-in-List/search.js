@@ -1,58 +1,38 @@
 import { towns } from './towns.js';
 import { html,render } from '../node_modules/lit-html/lit-html.js';
 
-const townsRoot = document.getElementById('towns');
-const result = document.getElementById('result');
+const searchTemplate = (towns, match) => html`
+   <article>
+      <div id="towns">
+         <ul>
+            ${towns.map(t=>itemTemplate(t,match))};
+         </ul>
+      </div>
+      <input type="text" id="searchText" />
+      <button @click = ${search}>Search</button>
+      <div id="result">${countMatches(towns,match)}</div>
+   </article>
+`
 
+const itemTemplate = (town,match) =>html`
+   <li class = ${(match && town.includes(match)) ? 'active' : ''}>${town}</li>
+`
 
-function search() {
-   
-   document.getElementsByTagName("button")[0].addEventListener('click', searchTown);
+const townsRoot = document.body;
+update();
 
-   function searchTown(){
-      
-      const textNode = document.getElementById('searchText');
-      const text = textNode.value.toLowerCase();
-
-      update(text);
-      updateCount();
-
-      textNode.value = "";
-      
-   }
-
-   function updateCount(){
-      const count = document.querySelectorAll('.active').length;
-      const countElement = count ? html`<p>${count} matches found</p>` : "";
-      render(countElement,result);
-   }
-
-   function renderTowns(townsName, match){
-
-      const townsValue = html`
-            <ul>
-               ${townsName.map(tn => createTownTemplate(tn,match))}              
-            </ul>          
-      `
-
-      return townsValue;
-      
-    } 
-
-    function update(text){
-      const ul = renderTowns(towns,text);
-
-      render(ul,townsRoot);
-
-    }
-
-    update();
-    
-    function createTownTemplate(town, match){
-      return html`         
-              <li class="${(match && town.toLowerCase().includes(match)) ? "active" : ""}">${town}</li>
-      `
-    }
+function update(match = ''){
+   const result = searchTemplate(towns,match);
+   render(result,townsRoot);
 }
 
-search();
+function search() {
+   const match = document.getElementById('searchText').value;
+   update(match);
+ 
+}
+
+function countMatches(towns,match){
+   const matches = towns.filter(x=> match && x.includes(match)).length;
+   return matches ? `${matches} matches found` : '0 matches found';
+}
