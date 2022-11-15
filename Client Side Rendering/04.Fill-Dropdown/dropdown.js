@@ -30,11 +30,13 @@ initialItemsLoading();
 
 
 
-function addItem() {
+function addItem(e) {
+    e.preventDefault();
     const value = {
         text: inputField.value
     }
     makePostRequest(value);
+    initialItemsLoading();
 
 }
 
