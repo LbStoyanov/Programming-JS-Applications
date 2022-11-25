@@ -1,42 +1,40 @@
-  function lockedProfile() {
 
-   async function getRequest(){
+function lockedProfile() {
+  const main = document.getElementById("main");
+  const div = document.getElementsByClassName('user1Username')[0];
+  div.style.display = 'none';
 
-    const url = 'http://localhost:3030/jsonstore/advanced/profiles';
+  async function getRequest() {
+    const url = "http://localhost:3030/jsonstore/advanced/profiles";
 
     const response = await fetch(url);
 
     if (response.status !== 200) {
-        throw new Error('Invalid request!');
+      throw new Error("Invalid request!");
     }
 
     const data = await response.json();
     let listOfUsers = Object.values(data);
 
-    let profiles = [];
 
-    
-   
+    for (let [value] of Object.entries(listOfUsers)) {
 
-    for(let [key, value] of Object.entries(listOfUsers)){
+      let age = value.age;
+      let email = value.email;
+      let username = value.username;
 
-        let age = value.age;
-        let email = value.email;
-        let username = value.username;
-
-        profiles.push(createProfileCard(age,email,username));
-
-    }
-
-    function createProfileCard(age,email,username){
-
+      const result = createProfileCard(age, email, username);
       
-
+      main
 
     }
 
+    function createProfileCard(age, email, username) {
     
-   }
+    }
+  }
 
-   getRequest();
+  getRequest();
 }
+
+lockedProfile();
