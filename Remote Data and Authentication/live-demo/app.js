@@ -10,6 +10,8 @@ function init(){
 
     sendBtn.addEventListener('click', onPost);
 
+    list.addEventListener('click', onCommentClick);
+
     getComments();
 }
 
@@ -32,7 +34,9 @@ function createCommentCard(comment){
     ///WRONG APPROACH.Just for save time in the demo!!!
 
     element.innerHTML = `<header><h3>${comment.name}</h3></header>
-    <main><p>${comment.content}</p></main>`;
+    <main><p>${comment.content}</p><button>Delete</button></main>`;
+
+    element.id = comment._id;
 
 
     return element;
@@ -61,6 +65,24 @@ async function postComment(comment){
     const data = await response.json();
 
     return data;
+}
+
+function onCommentClick(e){
+    if (e.target.tagName == 'BUTTON') {
+        const choice = confirm('Are you sure you want to delete this comment?');
+        if (choice) {
+            const commentId = e.target.parentElement.parentElement.id;
+            deleteComment(commentId);
+        }
+    }
+}
+
+async function deleteComment(id){
+    const response = await fetch('http://localhost:3030/jsonstore/comments/' + id, {
+        method: 'DELETE'
+    });
+
+    const element = document.getElementById(id).remove();
 }
 
 init();
