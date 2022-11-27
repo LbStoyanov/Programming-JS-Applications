@@ -85,4 +85,18 @@ async function deleteComment(id){
     const element = document.getElementById(id).remove();
 }
 
+async function updateComment(id, comment){
+    const response = await fetch('http://localhost:3030/jsonstore/comments/' + id,{
+        method: 'PUT',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(comment);
+    })
+
+    return response.json();
+
+    //TODO: Add update button and test the function!!!
+}
+
 init();
