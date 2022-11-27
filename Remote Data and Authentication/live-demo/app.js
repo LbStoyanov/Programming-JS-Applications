@@ -1,22 +1,29 @@
+const list = document.getElementById('comments');
+const nameInput = document.querySelector('[name="name"]');
+const contentInput = document.querySelector('[name="content"]');
+const loadBtn = document.getElementById('load');
+const sendBtn = document.getElementById('send');
+
+
 function init(){
-    document.getElementById('load').addEventListener('click', async () => {
+    loadBtn.addEventListener('click', async () => {
         const comments = await getComments();
         displayComments(comments);
     });
 
-    document.getElementById('send').addEventListener('click', onPost);
+    sendBtn.addEventListener('click', onPost);
 }
 
 async function onPost(){
-    const name = document.querySelector('[name="name"]').value;
-    const content = document.querySelector('[name="content"]').value;
+    const name = nameInput.value;
+    const content = contentInput.value;
 
     await postComment({name,content});
 
 }
 
 function displayComments(comments){
-    const list = document.getElementById('comments');
+    
     list.replaceChildren(...comments.map(createCommentCard))
 }
 
