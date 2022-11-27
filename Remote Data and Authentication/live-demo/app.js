@@ -6,19 +6,19 @@ const sendBtn = document.getElementById('send');
 
 
 function init(){
-    loadBtn.addEventListener('click', async () => {
-        const comments = await getComments();
-        displayComments(comments);
-    });
+    loadBtn.addEventListener('click', getComments);
 
     sendBtn.addEventListener('click', onPost);
+
+    getComments();
 }
 
 async function onPost(){
     const name = nameInput.value;
     const content = contentInput.value;
 
-    await postComment({name,content});
+    const result = await postComment({name,content});
+    list.appendChild(createCommentCard(result));
 
 }
 
@@ -44,7 +44,8 @@ async function getComments(){
     const response = await fetch('http://localhost:3030/jsonstore/comments');
     const data = await response.json();
 
-    return Object.values(data);
+    const comments =  Object.values(data);
+    displayComments(comments);
 }
 
 async function postComment(comment){
