@@ -20,10 +20,7 @@ async function onPost(event){
 
     const formData = new FormData(event.target);
 
-    const data = Object.fromEntries(formData.entries());
-
-    const name = data.name;
-    const content = data.content;
+    const {name, content} = Object.fromEntries(formData.entries());
 
     const result = await postComment({name,content});
     list.prepend(createCommentCard(result));
