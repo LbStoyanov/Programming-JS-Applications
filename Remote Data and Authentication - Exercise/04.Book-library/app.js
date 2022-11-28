@@ -1,6 +1,7 @@
 document.getElementById('loadBooks').addEventListener('click',loadAllBooks);
 const body = document.getElementById('tbody');
 const url = 'http://localhost:3030/jsonstore/collections/books';
+const formData = document.getElementById('submit').addEventListener('submit',createBook);
 
 async function loadAllBooks(){
     const response = await fetch(url);
@@ -13,14 +14,47 @@ async function loadAllBooks(){
         const title = b.title;
         const author = b.author;
 
-        const book = createBook(title,author);
+        const book = createBookTemplate(title,author);
 
         body.appendChild(book);
         
     });
+
+
 }
 
-function createBook(title,author){
+async function createBook(event){
+    event.preventDefault();
+    
+    const dataInput = new FormData(event.target);
+   
+    const {title,author} = Object.fromEntries(dataInput.entries());
+
+    const result = await postBook({title,author});
+
+}   
+
+async function postBook(book){
+    const response = await fetch(url,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(book)
+
+    });
+
+    const data = await response.json();
+
+    return data;
+}
+
+
+function getBook(id){
+    //TODO: Implement the solution!
+}
+
+function createBookTemplate(title,author){
     
     let tr = document.createElement('tr');
     
