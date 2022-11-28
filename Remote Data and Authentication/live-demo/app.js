@@ -1,26 +1,32 @@
 const list = document.getElementById('comments');
-const nameInput = document.querySelector('[name="name"]');
-const contentInput = document.querySelector('[name="content"]');
+/* const nameInput = document.querySelector('[name="name"]');
+const contentInput = document.querySelector('[name="content"]'); */
 const loadBtn = document.getElementById('load');
-const sendBtn = document.getElementById('send');
+const sendBtn = document.getElementById('comment-form');
 
 
 function init(){
     loadBtn.addEventListener('click', getComments);
 
-    sendBtn.addEventListener('click', onPost);
+    sendBtn.addEventListener('submit', onPost);
 
     list.addEventListener('click', onCommentClick);
 
     getComments();
 }
 
-async function onPost(){
-    const name = nameInput.value;
-    const content = contentInput.value;
+async function onPost(event){
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+
+    const data = Object.fromEntries(formData.entries());
+
+    const name = data.name;
+    const content = data.content;
 
     const result = await postComment({name,content});
-    list.appendChild(createCommentCard(result));
+    list.prepend(createCommentCard(result));
 
 }
 
@@ -91,7 +97,7 @@ async function updateComment(id, comment){
         headers:{
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(comment);
+        body: JSON.stringify(comment)
     })
 
     return response.json();
