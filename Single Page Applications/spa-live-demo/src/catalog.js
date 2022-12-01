@@ -1,9 +1,12 @@
 
 export async function showCatalogView(){
     [...document.querySelectorAll('section')].forEach(s => s.style.display = 'none');
-    document.getElementById('catalog-page').style.display = 'block';
+    
 
     const recipes = await getAllRecipes();
+
+    document.getElementById('catalog-page').style.display = 'block';
+    
     displayRecipes(recipes);
 }
 
