@@ -1,3 +1,7 @@
+import { showDetailsView } from "./details.js";
+
+document.getElementById('recipes-list').addEventListener('click', openRecipe);
+document.getElementById('catalog-link').addEventListener('click', showCatalogView);
 
 export async function showCatalogView(){
     [...document.querySelectorAll('section')].forEach(s => s.style.display = 'none');
@@ -36,5 +40,19 @@ function createRecipeCard(recipe){
     const element = document.createElement('li');
     element.textContent = recipe.name;
 
+    const link = document.createElement('a');
+    link.href = 'javascript:void(0)';
+    link.text = '[Details]';
+    link.id = recipe._id;
+    element.appendChild(link);
+
     return element;
+}
+
+function openRecipe(e){
+    if(e.target.tagName == 'A'){
+        e.preventDefault();
+        const id = e.target.id;
+        showDetailsView(id);
+    }
 }
