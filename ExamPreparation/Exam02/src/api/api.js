@@ -1,8 +1,9 @@
 import { getUserData } from "../util.js";
 
-const host = 'http://localhost:3030/';
+const host = 'http://localhost:3030';
 
 async function request(method, url, data){
+    
     const options = {
         method,
         headers:{}
@@ -20,19 +21,21 @@ async function request(method, url, data){
     }
 
     try{
-        const response = await fetch(host + url,options); 
+        const response = await fetch(host + url, options); 
 
         if (response.status == 204) {
             return response;
         }
 
         const result = await response.json();
+     
 
         if (response.ok == false) {
             throw new Error(result.message);
         }
 
         return result;
+
     }catch(err){
         alert(err.message);
         throw err;

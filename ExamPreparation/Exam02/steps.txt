@@ -7,9 +7,10 @@
     *Create duplicate HTML, to test step by step the views
 4.Create application entry point and route placeholder
     *Create src folder, with app.js and util.js
-    *In src folder create API folder
+    *In src folder create API folder, views folder
     *In api folder create api.js and user.js
-    *Add the script(<script src="src/app.js" type="module"></script>) to the index.html
+    *Add the script(<script src="/src/app.js" type="module"></script>) to the index.html
+    *Create paths in the href in html
 
 5.Write remote request function
 6.Implement views
