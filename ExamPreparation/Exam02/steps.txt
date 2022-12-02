@@ -1,0 +1,5 @@
+1.Extract project fiels and examine them
+2.Setup NPM project and install dependencies
+3.Examine HTML files and determine broad template structure
+4.Create application entry point and route placeholder
+5.
