@@ -1,5 +1,18 @@
-1.Extract project fiels and examine them
+1.Extract project files and examine them
 2.Setup NPM project and install dependencies
+    * npm install
+    *npm start
+    *start the local server provided in the skelet(3 terminals in total!!!)
 3.Examine HTML files and determine broad template structure
+    *Create duplicate HTML, to test step by step the views
 4.Create application entry point and route placeholder
-5.
+    *Create src folder, with app.js and util.js
+    *In src folder create API folder
+    *In api folder create api.js and user.js
+    *Add the script(<script src="src/app.js" type="module"></script>) to the index.html
+
+5.Write remote request function
+6.Implement views
+6.1 Create static page template
+6.2 Implements data request logic
+6.3 Add event listeners
